@@ -1,5 +1,7 @@
 """Router for interaction endpoints."""
 
+from datetime import datetime
+
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.exc import IntegrityError
 from sqlmodel.ext.asyncio.session import AsyncSession
@@ -16,7 +18,7 @@ def _filter_by_item_id(
 ) -> list[InteractionLog]:
     if item_id is None:
         return interactions
-    return [i for i in interactions if i.learner_id == item_id]
+    return [i for i in interactions if i.item_id == item_id]
 
 
 @router.get("/", response_model=list[InteractionModel])
